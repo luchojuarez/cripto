@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
 
 	// Ejemplo por defecto:
 	// AAACCB
-	char def_str[20] = "ABAB0";
+	char def_str[20] = "ABAB"; // el fin de cadena te lo da C
 	char key = 130;
 	int str_elems = 20;
 
