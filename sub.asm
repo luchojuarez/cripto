@@ -34,7 +34,9 @@ encrip:
 
 	return_encrip_after_shift: ;despues de shiftear segun corresponda vuelvo aca
 
-	;call swap
+	push dword[ebp+16]
+	call swap
+	add esp , 4
 
 	mov eax, 0
 	; retornar a C
@@ -71,6 +73,7 @@ decrip:
 
 ;	pos = [EBP+16] char *encripted_str (cadena original con los byte's shifteados segun key)
 	shift_to_right:
+	enter 0 , 0
 	mov eax , 0
 	mov ebx , 127 ; mascara 0111 1111
 	mov al , [ebp+12] ; copio la key a la parte baja AX
@@ -113,6 +116,7 @@ decrip:
 ;-------------------------------------------------------------------------------------------
 
 	shift_to_left:
+	enter 0 , 0
 	mov eax , 0
 	mov ebx , 127 ; mascara 0111 1111
 	mov al , [ebp+12] ; copio la key a la parte baja AX
@@ -150,17 +154,18 @@ decrip:
 		jmp begin_shift_to_left_loop
 	end_shift_to_left_loop:
 	mov dword[edi] , 0
-	jmp return_encrip_after_shift
+	leave
+	ret
 ;-------------------------------------------------------------------------------------------
 
 
 
-; pre: [EBP+12] cadena de bytes terminada en null (integer 0)
-; pos: [EBP+12] cadena original con los los bits pares intercambiados por los impares
+; pre: [EBP+8] cadena de bytes terminada en null (integer 0)
+; pos: [EBP+8] cadena original con los los bits pares intercambiados por los impares
 swap:
 	enter 0 , 0
 
-	mov eax , [ebp+12]
+	mov eax , [ebp+8]
 	mov ecx , 0
 	; EAX puntero al comienzo de la cadena
 	; ECX vacio para almacenar temporalmente un byte
@@ -177,7 +182,6 @@ swap:
 
 		;intercambio
 		mov [eax] , ch
-	;dump_regs 1
 		inc eax
 		mov [eax] , cl
 		inc eax

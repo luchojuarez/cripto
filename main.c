@@ -105,7 +105,7 @@ int main(int argc, char *argv[]) {
 	// Ejemplo por defecto:
 	// AAACCB
 	char def_str[20] = "ABAB",null; // el fin de cadena te lo da C
-	char key = 130;
+	char key;
 	int str_elems = 20;
 
 	char *str;
@@ -113,14 +113,15 @@ int main(int argc, char *argv[]) {
 	char *decripted_str;
 
 	if (argc == 1) {
-		str = def_str;
-
-
+		str = def_str; // cadena por defecto
+		key = 130;     // pass por defecto
 	}
+
 	// Ejemplo provisto por el usuario
 	if (argc == 2) {
-		str = argv[1];
-		str_elems = strlen(str)+1;
+		str = argv[1];   //
+		str_elems = strlen(str)+1; //cantidad de elementos
+		key = argv[2];
 	}
 	printf("Elems: \n%d\n", str_elems);
 
@@ -141,6 +142,8 @@ int main(int argc, char *argv[]) {
 
 	printf("-----------Resultado de la desencriptacion--------\n");
 	printf("Cadena desencriptada: \n%s\n", decripted_str);
+	free(encripted_str);
+	free(decripted_str);
 
 }
 
