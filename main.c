@@ -108,7 +108,7 @@ int main(int argc, char *argv[]) {
 	char key;
 	int str_elems = 20;
 
-	char str[40];
+	char *str;
 	char *encripted_str;
 	char *decripted_str;
 
@@ -121,7 +121,6 @@ int main(int argc, char *argv[]) {
 	if (argc == 2) {
 		str = argv[1];   //
 		str_elems = strlen(str)+1; //cantidad de elementos
-		key = argv[2];
 	}
 	printf("Elems: \n%d\n", str_elems);
 
@@ -132,21 +131,16 @@ int main(int argc, char *argv[]) {
 	encripted_str = calloc(0,str_elems);
 	decripted_str = calloc(0,str_elems);
 
-	//encrip(str, key, encripted_str);
+	encrip(str, key, encripted_str);
 	printf("-----------Resultado de la encriptacion--------\n");
 	printf("Cadena encriptada: \n");
 	print_encripted_string(encripted_str);
 //	printf("Cadena encriptada en formato caracter: \n%s\n", encripted_str);
 
-	//decrip(encripted_str, key, decripted_str);
+	decrip(encripted_str, key, decripted_str);
 
 	printf("-----------Resultado de la desencriptacion--------\n");
 	printf("Cadena desencriptada: \n%s\n", decripted_str);
-	
-	if(encripted_str!=0)
-		free(encripted_str);
-	if(decripted_str !=0)
-		free(decripted_str);
 
 }
 

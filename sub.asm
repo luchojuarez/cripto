@@ -48,10 +48,35 @@ encrip:
 ;void decrip(char *encripted_str, char key, char *decripted_str)
 decrip:
 	enter 0,0
-	;
-	;
-	;
-	;
+	mov eax , 0
+	mov al , [ebp+12]
+	;en la parte baja de AX tengo la key
+	shl al , 1  ; tiro al carry el bit mas significativo de la clave
+	; si hay carry salto al bloque que llama al procedimiento para shift derecha
+	jnc call_shift_to_right2 
+
+	;sino llamo a shiftear hacia la izquierda
+	push dword[ebp+16]
+	push dword[ebp+12]
+	push dword[ebp+8]
+	call shift_to_left
+	add esp , 12
+
+	;salto para no ejecutar el shifteo hacia el otro lado
+	jmp return_encrip_after_shift2
+
+	call_shift_to_right2:
+	push dword[ebp+16]
+	push dword[ebp+12]
+	push dword[ebp+8]
+	call shift_to_right
+	add esp , 12
+
+	return_encrip_after_shift2: ;despues de shiftear segun corresponda vuelvo aca
+
+	push dword[ebp+16]
+	call swap
+	add esp , 4
 	mov eax, 0
 	; retornar a C
 	leave
