@@ -56,9 +56,9 @@ decrip:
 	jnc call_shift_to_right2 
 
 	;sino llamo a shiftear hacia la izquierda
-	push dword[ebp+16]
-	push dword[ebp+12]
-	push dword[ebp+8]
+	push dword[ebp+16] ;decripted_str
+	push dword[ebp+12] ;key
+	push dword[ebp+8]  ;encripted_str
 	call shift_to_left
 	add esp , 12
 
@@ -66,9 +66,9 @@ decrip:
 	jmp return_encrip_after_shift2
 
 	call_shift_to_right2:
-	push dword[ebp+16]
-	push dword[ebp+12]
-	push dword[ebp+8]
+	push dword[ebp+16] ;decripted_str
+	push dword[ebp+12] ;key
+	push dword[ebp+8]  ;encripted_str
 	call shift_to_right
 	add esp , 12
 
