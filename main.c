@@ -65,20 +65,12 @@ void print_encripted_string(char *str) {
 
 int main(int argc, char *argv[]) {
 
-	// Ejemplo por defecto:
-	// AAACCB
-	char def_str[20] = "ABAB",null; // el fin de cadena te lo da C
 	unsigned char key;
 	int str_elems = 20;
 
 	char *str;
 	char *encripted_str;
 	char *decripted_str;
-
-	if (argc == 1) {
-		str = &def_str; // cadena por defecto
-		key = 130;     // pass por defecto
-	}
 
 	// Ejemplo provisto por el usuario
 	if (argc == 2) {
