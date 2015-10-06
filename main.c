@@ -65,7 +65,7 @@ void print_encripted_string(char *str) {
 
 int main(int argc, char *argv[]) {
 
-	unsigned char key;
+	unsigned char key=130;
 	int str_elems = 20;
 
 	char *str;
@@ -83,19 +83,21 @@ int main(int argc, char *argv[]) {
 	printf("-----------Cadena de entrada--------\n");
 	printf("Cadena: \n%s\n", str);
 
-	encripted_str = malloc(str_elems+20);
-	decripted_str = malloc(str_elems+20);
+	encripted_str = malloc(str_elems);
+	decripted_str = malloc(str_elems);
 
 	encrip(str, key, encripted_str);
 	printf("-----------Resultado de la encriptacion--------\n");
 	printf("Cadena encriptada: \n");
 	print_encripted_string(encripted_str);
-	//printf("Cadena encriptada en formato caracter: \n%s\n", encripted_str);
+	printf("\nCadena encriptada en formato caracter: '%s'\n", encripted_str);
 	decrip(encripted_str, key, decripted_str);
 
-	printf("-----------Resultado de la desencriptacion--------\n");
-	printf("Cadena desencriptada: \n%s\n", decripted_str);
-	free(encripted_str);
-	free(decripted_str);
+	printf("\n-----------Resultado de la desencriptacion--------\n");
+	printf("\nCadena desencriptada: '%s'\n", decripted_str);
+	if (encripted_str != NULL)
+		free(encripted_str);
+	if(decripted_str != NULL)
+		free(decripted_str);
 
 }

@@ -2,7 +2,8 @@
 segment .text
 global encrip , decrip
 
-;subrutuna de encriptamiento
+
+;--------------SUBRUTINA DE ENCRIPTAMIENTO-------------------------------
 
 ;            [EBP+8]     [EBP+12]     [EBP+16]
 ;void encrip(char *str, char key, char *encripted_str) 
@@ -43,7 +44,9 @@ encrip:
 	leave
 	ret
 
+;---------------------------------------------------------------------------
 
+;--------------SUBRUTINA DE DESENCRIPTAMIENTO-------------------------------
 ;                 [EBP+8]         [EBP+12]     [EBP+16]
 ;void decrip(char *encripted_str, char key, char *decripted_str)
 decrip:
@@ -135,6 +138,7 @@ decrip:
 			inc ebx ; avanzo al siguiente byte
 		jmp begin_shift_to_rigt_loop
 	end_shift_to_rigt_loop:
+	mov dword[edi] , 0
 	leave
 	ret
 
