@@ -2,6 +2,38 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* 
+* Encripta la cadena de caracteres de entrada 'str', y retorna el resultado en 'encoded_str'. 
+* Recordar que 'encoded_str' debe terminar con dos bits consecutivos en 0. 
+* Ademas, el procedimiento debe retornar en el parametro 'table' la encriptacion usada para cada una de las letras
+*/
+/*DEFINIDA EN ASSEMBLER*/
+
+int encrip(char *str, char key, char *encripted_str) {
+	encripted_str[0] = 0b10010000;
+	encripted_str[1] = 0b01010000;
+	encripted_str[2] = 0b10010000;
+	encripted_str[3] = 0b01010000;
+	encripted_str[4] = 0b00000000;
+	encripted_str[5] = 0b11011110;
+	return 0;
+}
+
+
+/* 
+* Toma como entradas una cadena de caracteres encripta 'decoded_str' (que finaliza con dos bits consecutivos en cero), 
+* la tabla con la Encriptacion usada por cada letra, 'table', y retornar la cadena Encriptada en el parametro 'decoded_str'.
+* Es importante agregar al final de 'decoded_str' el caracter null. 
+*/
+/*DEFINIDA EN ASSEMBLER*/
+int decrip(char *encripted_str, char key, char *decripted_str) {
+	char def_str[20] = "ABAB0";
+	strcpy(decripted_str, def_str);
+	printf("clave %d",key);
+	return 0;
+}
+
+
 // Precondicion: str apunta a un arreglo de caracteres terminado en null.
 // Postcondicion: Imprime la representacion binaria de cada uno de los caracteres en str.
 void print_binary_rep(char *str) {
@@ -66,31 +98,41 @@ void print_encripted_string(char *str) {
 int main(int argc, char *argv[]) {
 
 	unsigned char key=130;
-	int str_elems = 20;
-
+	int str_elems;
+	char def_str[20] = "ABAB0";
 	char *str;
 	char *encripted_str;
 	char *decripted_str;
+	
+	if (argc == 1) {
+		str = def_str;
+		str_elems=5;
+	}
 
 	// Ejemplo provisto por el usuario
 	if (argc == 2) {
-		str = argv[1];   //
+		str = argv[1];
 		str_elems = strlen(str)+1; //cantidad de elementos
 	}
-	printf("Elems: \n%d\n", str_elems);
+
+	// Ejemplo y key provisto por el usuario
+	if (argc == 3) {
+		str = argv[1];
+		str_elems = strlen(str)+1; //cantidad de elementos
+		key=atoi(argv[2]);
+	}
 
 
-	printf("-----------Cadena de entrada--------\n");
-	printf("Cadena: \n%s\n", str);
+	printf("--------------Entrada-----------\n");
+	printf("Elems: %d\nkey: %i\nCadena: %s\n", str_elems,key,str);
 
 	encripted_str = malloc(str_elems);
 	decripted_str = malloc(str_elems);
 
 	encrip(str, key, encripted_str);
-	printf("-----------Resultado de la encriptacion--------\n");
+	printf("\n-----------Resultado de la encriptacion--------\n");
 	printf("Cadena encriptada: \n");
 	print_encripted_string(encripted_str);
-	printf("\nCadena encriptada en formato caracter: '%s'\n", encripted_str);
 	decrip(encripted_str, key, decripted_str);
 
 	printf("\n-----------Resultado de la desencriptacion--------\n");
@@ -99,5 +141,6 @@ int main(int argc, char *argv[]) {
 		free(encripted_str);
 	if(decripted_str != NULL)
 		free(decripted_str);
+
 
 }
